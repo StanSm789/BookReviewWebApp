@@ -1,5 +1,6 @@
 package com.smirnov.bookreview.config;
 
+import com.smirnov.bookreview.controllers.UsersController;
 import com.smirnov.bookreview.dao.UserDao;
 import com.smirnov.bookreview.dao.impl.UserDaoImpl;
 import com.smirnov.bookreview.dao.mappers.UserMapper;
@@ -15,9 +16,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
@@ -51,7 +55,6 @@ public class SpringJdbcConfig implements WebMvcConfigurer {
         templateResolver.setApplicationContext(applicationContext);
         templateResolver.setPrefix("/WEB-INF/views/");
         templateResolver.setSuffix(".html");
-        templateResolver.setCharacterEncoding("UTF-8");
         return templateResolver;
     }
 
@@ -67,8 +70,6 @@ public class SpringJdbcConfig implements WebMvcConfigurer {
     public void configureViewResolvers(ViewResolverRegistry registry) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine());
-        resolver.setCharacterEncoding("UTF-8");
-
         registry.viewResolver(resolver);
     }
 
@@ -106,10 +107,14 @@ public class SpringJdbcConfig implements WebMvcConfigurer {
         return new UserMapper();
     }
 
-    @Bean
-    UserDao userDao() {
-        return new UserDaoImpl(jdbcTemplate(), transactionTemplate(),
-                userMapper());
+    /*@Bean
+    public UserDao userDao() {
+        return new UserDaoImpl(jdbcTemplate(), transactionTemplate(), userMapper());
     }
+
+    @Bean
+    public UsersController usersController() {
+        return new UsersController(userDao());
+    }*/
 
 }

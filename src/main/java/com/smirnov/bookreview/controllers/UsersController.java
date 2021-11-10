@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 
 @Controller
@@ -34,15 +33,15 @@ public class UsersController {
     }
 
     @GetMapping("/new")
-    public String newUser(@ModelAttribute("user") User user) {
+    public String newUser() {
         return "users/new";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("user") @Valid User user,
-                         BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "users/new";
+    public String create(@RequestParam("name") String name, @RequestParam("email") String email,
+                         @RequestParam("password") String password, @RequestParam("type") String type) {
+        User user = User.builder().withName(name).withEmail(email)
+                .withPassword(password).withType(type).build();
 
         userDao.save(user);
         return "redirect:/users";
@@ -55,10 +54,12 @@ public class UsersController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
-                         @PathVariable("id") int id) {
-        if (bindingResult.hasErrors())
-            return "users/edit";
+    public String update(@PathVariable("id") int id,
+                         @RequestParam("name") String name, @RequestParam("email") String email,
+                         @RequestParam("password") String password, @RequestParam("type") String type) {
+
+        User user = User.builder().withName(name).withEmail(email)
+                .withPassword(password).withType(type).build();
 
         userDao.update(id, user);
         return "redirect:/users";
@@ -68,10 +69,5 @@ public class UsersController {
     public String delete(@PathVariable("id") int id) {
         userDao.deleteById(id);
         return "redirect:/users";
-    }
-
-    @GetMapping("/hello-world")
-    public String sayHello() {
-        return "hello_world";
     }
 }
