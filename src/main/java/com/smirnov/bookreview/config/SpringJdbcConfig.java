@@ -1,8 +1,11 @@
 package com.smirnov.bookreview.config;
 
 import com.smirnov.bookreview.controllers.UsersController;
+import com.smirnov.bookreview.dao.BookDao;
 import com.smirnov.bookreview.dao.UserDao;
+import com.smirnov.bookreview.dao.impl.BookDaoImpl;
 import com.smirnov.bookreview.dao.impl.UserDaoImpl;
+import com.smirnov.bookreview.dao.mappers.BookMapper;
 import com.smirnov.bookreview.dao.mappers.UserMapper;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,14 +110,8 @@ public class SpringJdbcConfig implements WebMvcConfigurer {
         return new UserMapper();
     }
 
-    /*@Bean
-    public UserDao userDao() {
-        return new UserDaoImpl(jdbcTemplate(), transactionTemplate(), userMapper());
-    }
-
     @Bean
-    public UsersController usersController() {
-        return new UsersController(userDao());
-    }*/
-
+    public BookMapper bookMapper() {
+        return new BookMapper();
+    }
 }
