@@ -2,9 +2,7 @@ package com.smirnov.bookreview.dao.impl;
 
 import com.smirnov.bookreview.dao.BookDao;
 import com.smirnov.bookreview.dao.mappers.BookMapper;
-import com.smirnov.bookreview.dao.mappers.UserMapper;
 import com.smirnov.bookreview.models.Book;
-import com.smirnov.bookreview.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -82,7 +80,7 @@ public class BookDaoImpl extends AbstractDao<Book> implements BookDao {
 
         jdbcTemplate.update(UPDATE_QUERY, book.getId(), book.getName(), book.getAuthorName(),
                 book.getYear(), book.getPublisher(), book.getDescription(),
-                book.getRecommendedRetailPrice(), book.getUrl());
+                book.getRecommendedRetailPrice(), book.getUrl(), id);
     }
 
     @Override

@@ -1,11 +1,7 @@
 package com.smirnov.bookreview.config;
 
-import com.smirnov.bookreview.controllers.UsersController;
-import com.smirnov.bookreview.dao.BookDao;
-import com.smirnov.bookreview.dao.UserDao;
-import com.smirnov.bookreview.dao.impl.BookDaoImpl;
-import com.smirnov.bookreview.dao.impl.UserDaoImpl;
 import com.smirnov.bookreview.dao.mappers.BookMapper;
+import com.smirnov.bookreview.dao.mappers.ReviewMapper;
 import com.smirnov.bookreview.dao.mappers.UserMapper;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +15,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
@@ -113,5 +106,10 @@ public class SpringJdbcConfig implements WebMvcConfigurer {
     @Bean
     public BookMapper bookMapper() {
         return new BookMapper();
+    }
+
+    @Bean
+    public ReviewMapper reviewMapper() {
+        return new ReviewMapper();
     }
 }

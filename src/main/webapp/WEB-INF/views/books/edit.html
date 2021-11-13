@@ -6,18 +6,15 @@
 </head>
 <body>
 
-<form th:method="PATCH" th:action="@{/books/{id}(id=${book.getId()})}" th:object="${book}">
+<form th:method="PATCH" th:action="@{/books/{id}(id=${book.get().getId()})}" th:object="${book}">
     <label for="name">Enter book name: </label>
     <input type="text" th:field="*{name}" id="name"/>
-    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
     <br/>
     <label for="authorName">Enter author name: </label>
     <input type="text" th:field="*{authorName}" id="authorName"/>
-    <div style="color:red" th:if="${#fields.hasErrors('authorName')}" th:errors="*{authorName}">Author Name Error</div>
     <br/>
     <label for="year">Enter year: </label>
     <input type="text" th:field="*{year}" id="year"/>
-    <div style="color:red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year Error</div>
     <br/>
     <label for="publisher">Enter publisher: </label>
     <input type="text" th:field="*{publisher}" id="publisher"/>
@@ -27,7 +24,6 @@
     <br/>
     <label for="recommendedRetailPrice">Enter recommended retail price: </label>
     <input type="text" th:field="*{recommendedRetailPrice}" id="recommendedRetailPrice"/>
-    <div style="color:red" th:if="${#fields.hasErrors('recommendedRetailPrice')}" th:errors="*{recommendedRetailPrice}">Recommended Retail Price Error</div>
     <br/>
     <label for="url">Enter url: </label>
     <input type="text" th:field="*{url}" id="url"/>
